@@ -1,0 +1,30 @@
+.tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  z-index: 10000;
+  max-width: 90%;
+  padding: 10px 15px;
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  pointer-events: none;
+  word-break: break-all;
+  transition: visibility 0.3s, opacity 0.3s;
+}
+
+.tooltip:global(.appear-active),
+.tooltip:global(.appear-done),
+.tooltip:global(.enter-active),
+.tooltip:global(.enter-done) {
+  visibility: visible;
+  opacity: 1;
+}
+
+.arrow {
+  display: block;
+  position: absolute;
+}
