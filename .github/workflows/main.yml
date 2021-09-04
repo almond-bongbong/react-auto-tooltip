@@ -17,9 +17,11 @@ jobs:
 
       - name: Install and Build Example 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         working-directory: example
-        run: |
-          npm install
-          npm run build
+        run: npm install
+
+      - name: Build Example 🔧
+        working-directory: example
+        run: npm run build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
