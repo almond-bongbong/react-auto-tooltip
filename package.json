@@ -11,6 +11,9 @@
   },
   "author": "almond-bongbong",
   "license": "MIT",
+  "dependencies": {
+    "react-transition-group": "^4.4.2"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-node-resolve": "^13.0.4",
@@ -29,7 +32,6 @@
   },
   "peerDependencies": {
     "react": "^16.14.0",
-    "react-dom": "^16.14.0",
-    "react-transition-group": "^4.4.2"
+    "react-dom": "^16.14.0"
   }
 }
