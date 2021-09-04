@@ -1,5 +1,6 @@
 {
   "name": "example",
+  "homepage": "https://almond-bongbong.github.io/react-auto-tooltip",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
