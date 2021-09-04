@@ -1,9 +1,8 @@
-import * as React from 'react';
-import {
+import React, {
   CSSProperties,
+  ReactElement,
   ReactNode,
   useEffect,
-  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
@@ -11,6 +10,7 @@ import { CSSTransition } from 'react-transition-group';
 import { addRootElement } from '../../util/element';
 import styles from './TooltipMessage.style.css';
 import useForceUpdate from '../../hooks/useForceUpdate';
+import useLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import { newLineToBreakTag } from '../../util/string';
 import { hasWindow } from '../../util/browser';
 import Portal from '../Portal';
@@ -24,7 +24,7 @@ interface TooltipMessageProps {
   onExited: () => void;
 }
 
-const containerId = 'tooltip-container';
+const containerId = 'tooltip-auto-container';
 const ADJUSTMENT = 15;
 const getArrowBottomStyleWithColor = (
   arrowColor: string = 'rgba(0, 0, 0, 0.8)'
@@ -51,14 +51,14 @@ const calcLeft = (
   messageWidth: number
 ) => Math.max(triggerLeft - (messageWidth - triggerWidth) / 2, ADJUSTMENT);
 
-const TooltipMessage: React.FC<TooltipMessageProps> = ({
+function TooltipMessage({
   triggerOn,
   message,
   messageStyle,
   messageClassName = '',
   triggerElement,
   onExited,
-}) => {
+}: TooltipMessageProps): ReactElement {
   const messageElementRef = useRef<HTMLDivElement>(null);
   const forceUpdate = useForceUpdate();
   const [tooltipStyle, setTooltipStyle] = useState<CSSProperties | null>(null);
@@ -96,8 +96,8 @@ const TooltipMessage: React.FC<TooltipMessageProps> = ({
       const messageHeight = messageElement.offsetHeight;
       const triggerElementRect = triggerElement.getBoundingClientRect();
       const triggerOffset = triggerElementRect && {
-        top: triggerElementRect.top + window.pageYOffset,
-        left: triggerElementRect.left + window.pageXOffset,
+        top: triggerElementRect.top + window.scrollY,
+        left: triggerElementRect.left + window.scrollX,
         width: triggerElementRect.width,
         height: triggerElementRect.height,
       };
@@ -157,6 +157,7 @@ const TooltipMessage: React.FC<TooltipMessageProps> = ({
         in={triggerOn}
         appear
         onExited={handleExited}
+        nodeRef={messageElementRef}
       >
         <div
           ref={messageElementRef}
@@ -174,6 +175,6 @@ const TooltipMessage: React.FC<TooltipMessageProps> = ({
       </CSSTransition>
     </Portal>
   );
-};
+}
 
 export default TooltipMessage;

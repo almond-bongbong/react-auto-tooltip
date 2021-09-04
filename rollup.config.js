@@ -26,6 +26,7 @@ export default {
     commonjs(),
     typescript({ useTsconfigDeclarationDir: true }),
     postcss({
+      modules: true,
       extensions: ['.css'],
     }),
   ],

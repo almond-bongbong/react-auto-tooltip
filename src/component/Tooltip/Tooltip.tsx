@@ -1,9 +1,15 @@
-import * as React from 'react';
-import { CSSProperties, ReactNode, useRef, useState } from 'react';
+import React, {
+  CSSProperties,
+  ReactElement,
+  ReactNode,
+  useRef,
+  useState,
+} from 'react';
 import TooltipMessage from '../TooltipMessage';
 import styles from './Tooltip.style.css';
 
 interface TooltipProps {
+  children: ReactNode;
   message: ReactNode;
   style?: CSSProperties;
   messageStyle?: CSSProperties;
@@ -12,7 +18,7 @@ interface TooltipProps {
   toggle?: boolean;
 }
 
-const Tooltip: React.FC<TooltipProps> = ({
+function Tooltip({
   children,
   style,
   className,
@@ -20,7 +26,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   messageStyle,
   messageClassName,
   toggle = false,
-}) => {
+}: TooltipProps): ReactElement {
   const [triggerOn, setTriggerOn] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
   const triggerElementRef = useRef<HTMLSpanElement>(null);
@@ -38,7 +44,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     if (!triggerOn) {
       setShow(true);
     }
-    setTriggerOn(prev => !prev);
+    setTriggerOn((prev) => !prev);
   };
 
   const handleBlur = () => {
@@ -73,6 +79,6 @@ const Tooltip: React.FC<TooltipProps> = ({
       )}
     </>
   );
-};
+}
 
 export default Tooltip;

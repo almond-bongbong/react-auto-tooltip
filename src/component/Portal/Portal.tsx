@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import { hasWindow } from '../../lib/browser';
+import { hasWindow } from '../../util/browser';
 
 interface Props {
   selector: string;
