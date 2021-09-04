@@ -1,10 +1,12 @@
 # react-auto-tooltip
 
-> Collection of components for interaction
+> Tooltip component for react
 
 [![NPM](https://img.shields.io/npm/v/react-auto-tooltip.svg)](https://www.npmjs.com/package/react-auto-tooltip) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-<img src="https://res.cloudinary.com/dfyuv19ig/image/upload/v1583760203/github/react-interaction-tooltip_qr7ezi.gif" />
+<p align="center">
+    <img src="https://res.cloudinary.com/dfyuv19ig/image/upload/v1583760203/github/react-interaction-tooltip_qr7ezi.gif" />
+</p>
 
 The position of the tooltip is calculated automatically.
 
