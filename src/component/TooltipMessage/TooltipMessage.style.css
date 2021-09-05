@@ -4,12 +4,10 @@
   position: absolute;
   z-index: 10000;
   max-width: 90%;
-  padding: 10px 15px;
-  border-radius: 3px;
-  background-color: rgba(0, 0, 0, 0.8);
+  padding: 8px 14px;
+  border-radius: 2px;
+  background-color: rgba(0, 0, 0, 0.9);
   color: #fff;
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
   font-size: 14px;
   pointer-events: none;
   word-break: break-all;

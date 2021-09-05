@@ -11,11 +11,9 @@ import styles from './Tooltip.style.css';
 interface TooltipProps {
   children: ReactNode;
   message: ReactNode;
+  toggleMode?: boolean;
   style?: CSSProperties;
-  messageStyle?: CSSProperties;
   className?: string;
-  messageClassName?: string;
-  toggle?: boolean;
 }
 
 function Tooltip({
@@ -23,9 +21,7 @@ function Tooltip({
   style,
   className,
   message,
-  messageStyle,
-  messageClassName,
-  toggle = false,
+  toggleMode = false,
 }: TooltipProps): ReactElement {
   const [triggerOn, setTriggerOn] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
@@ -59,9 +55,8 @@ function Tooltip({
     <>
       <span
         ref={triggerElementRef}
-        className={`${styles['tooltip-trigger']} ${className || ''}`}
-        style={style}
-        {...(toggle
+        className={styles['tooltip-trigger']}
+        {...(toggleMode
           ? { onClick: handleToggle, onBlur: handleBlur }
           : { onMouseOver: handleOver, onMouseOut: handleOut })}
       >
@@ -71,9 +66,11 @@ function Tooltip({
         <TooltipMessage
           triggerOn={triggerOn}
           message={message}
-          messageStyle={messageStyle}
-          messageClassName={messageClassName}
-          triggerElement={triggerElementRef.current!.children[0]}
+          style={style}
+          className={className}
+          triggerElement={
+            triggerElementRef.current?.children[0] || triggerElementRef.current
+          }
           onExited={handleHide}
         />
       )}

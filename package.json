@@ -7,7 +7,8 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "start": "rollup -c -w"
   },
   "author": "almond-bongbong",
   "license": "MIT",

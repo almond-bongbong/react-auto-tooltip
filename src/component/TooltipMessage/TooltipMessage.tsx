@@ -18,8 +18,8 @@ import Portal from '../Portal';
 interface TooltipMessageProps {
   triggerOn: boolean;
   message: ReactNode;
-  messageStyle?: CSSProperties;
-  messageClassName?: string;
+  style?: CSSProperties;
+  className?: string;
   triggerElement: Element | null;
   onExited: () => void;
 }
@@ -54,16 +54,15 @@ const calcLeft = (
 function TooltipMessage({
   triggerOn,
   message,
-  messageStyle,
-  messageClassName = '',
+  style,
+  className = '',
   triggerElement,
   onExited,
 }: TooltipMessageProps): ReactElement {
   const messageElementRef = useRef<HTMLDivElement>(null);
   const forceUpdate = useForceUpdate();
   const [tooltipStyle, setTooltipStyle] = useState<CSSProperties | null>(null);
-  const [tooltipArrowStyle, setTooltipArrowStyle] =
-    useState<CSSProperties | null>(null);
+  const [tooltipArrowStyle, setTooltipArrowStyle] = useState<CSSProperties>({});
 
   if (hasWindow() && !document.getElementById(containerId)) {
     addRootElement(containerId);
@@ -161,16 +160,11 @@ function TooltipMessage({
       >
         <div
           ref={messageElementRef}
-          className={`${styles['tooltip']} ${messageClassName || ''}`}
-          style={{ ...tooltipStyle, ...messageStyle }}
+          className={`${styles['tooltip']} ${className || ''}`}
+          style={{ ...tooltipStyle, ...style }}
         >
           {typeof message === 'string' ? newLineToBreakTag(message) : message}
-          <span
-            className={styles['arrow']}
-            style={{
-              ...tooltipArrowStyle,
-            }}
-          />
+          <span className={styles['arrow']} style={tooltipArrowStyle} />
         </div>
       </CSSTransition>
     </Portal>

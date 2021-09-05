@@ -26,16 +26,14 @@ import { Tooltip } from 'react-auto-tooltip';
 
 [Live Demo](https://almond-bongbong.github.io/react-auto-tooltip)
 
-### props
+## props
 
-| Name             | Type          | Default | Description |
-| ---------------- | ------------- | ------- | ----------- |
-| style            | CSSProperties |         |             |
-| className        | string        |         |             |
-| message          | ReactNode     |         |             |
-| messageStyle     | CSSProperties |         |             |
-| messageClassName | string        |         |             |
-| toggle           | boolean       | false   |             |
+| Name      | Type          | Default | Description |
+| --------- | ------------- | ------- | ----------- |
+| message   | ReactNode     |         |             |
+| toggle    | boolean       | false   |             |
+| style     | CSSProperties |         |             |
+| className | string        |         |             |
 
 ## License
 
