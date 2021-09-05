@@ -39,25 +39,14 @@ function App(): ReactElement {
         <div className="example-area">
           <h3>Custom style</h3>
           <div className="playground">
-            <Tooltip
-              message="My custom tooltip"
-              style={{
-                backgroundColor: 'rgba(50, 130, 184, 0.9)',
-                fontSize: 16,
-              }}
-              className="my-tooltip-message"
-            >
+            <Tooltip message="My custom tooltip" backgroundColor="blue">
               <button type="button" className="example-button">
                 text message
               </button>
             </Tooltip>
           </div>
           <CommonHighlighter>
-            {`<Tooltip
-  message="My custom tooltip"
-  messageStyle={{ backgroundColor: 'rgba(50, 130, 184, 0.9)', fontSize: 16 }}
-  messageClassName="my-tooltip-message"
->
+            {`<Tooltip message="My custom tooltip" backgroundColor="skyblue">
   <button type="button" className="example-button">
     text message
   </button>
@@ -66,7 +55,7 @@ function App(): ReactElement {
         </div>
 
         <div className="example-area">
-          <h3>Toggle type</h3>
+          <h3>Toggle mode</h3>
           <div className="playground">
             <Tooltip message="text message" toggleMode>
               <button type="button" className="example-button">
@@ -78,6 +67,24 @@ function App(): ReactElement {
             {`<Tooltip message="text message" toggleMode>
   <button type="button">
     click me
+  </button>
+</Tooltip>`}
+          </CommonHighlighter>
+        </div>
+
+        <div className="example-area">
+          <h3>Default visible</h3>
+          <div className="playground">
+            <Tooltip message="text message" defaultVisible>
+              <button type="button" className="example-button">
+                hover me
+              </button>
+            </Tooltip>
+          </div>
+          <CommonHighlighter>
+            {`<Tooltip message="text message" defaultVisible>
+  <button type="button">
+    hover me
   </button>
 </Tooltip>`}
           </CommonHighlighter>

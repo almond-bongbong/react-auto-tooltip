@@ -8,16 +8,18 @@ import React, {
 } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { addRootElement } from '../../util/element';
-import styles from './TooltipMessage.style.css';
 import useForceUpdate from '../../hooks/useForceUpdate';
 import useLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import { newLineToBreakTag } from '../../util/string';
 import { hasWindow } from '../../util/browser';
 import Portal from '../Portal';
+import styles from './TooltipMessage.style.css';
 
 interface TooltipMessageProps {
   triggerOn: boolean;
   message: ReactNode;
+  zIndex?: number;
+  backgroundColor?: string;
   style?: CSSProperties;
   className?: string;
   triggerElement: Element | null;
@@ -54,6 +56,8 @@ const calcLeft = (
 function TooltipMessage({
   triggerOn,
   message,
+  zIndex = 1000,
+  backgroundColor,
   style,
   className = '',
   triggerElement,
@@ -161,7 +165,12 @@ function TooltipMessage({
         <div
           ref={messageElementRef}
           className={`${styles['tooltip']} ${className || ''}`}
-          style={{ ...tooltipStyle, ...style }}
+          style={{
+            ...tooltipStyle,
+            ...style,
+            ...(zIndex && { zIndex }),
+            ...(backgroundColor && { backgroundColor }),
+          }}
         >
           {typeof message === 'string' ? newLineToBreakTag(message) : message}
           <span className={styles['arrow']} style={tooltipArrowStyle} />

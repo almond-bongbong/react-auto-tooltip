@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import useLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import TooltipMessage from '../TooltipMessage';
 import styles from './Tooltip.style.css';
 
@@ -12,16 +13,22 @@ interface TooltipProps {
   children: ReactNode;
   message: ReactNode;
   toggleMode?: boolean;
+  defaultVisible?: boolean;
+  zIndex?: number;
+  backgroundColor?: string;
   style?: CSSProperties;
   className?: string;
 }
 
 function Tooltip({
   children,
-  style,
-  className,
   message,
   toggleMode = false,
+  defaultVisible = false,
+  zIndex,
+  backgroundColor,
+  style,
+  className,
 }: TooltipProps): ReactElement {
   const [triggerOn, setTriggerOn] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
@@ -51,6 +58,10 @@ function Tooltip({
     setShow(false);
   };
 
+  useLayoutEffect(() => {
+    if (defaultVisible) handleOver();
+  }, []);
+
   return (
     <>
       <span
@@ -66,6 +77,8 @@ function Tooltip({
         <TooltipMessage
           triggerOn={triggerOn}
           message={message}
+          zIndex={zIndex}
+          backgroundColor={backgroundColor}
           style={style}
           className={className}
           triggerElement={
