@@ -5,13 +5,17 @@
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
+  "repository": "almond-bongbong/react-interaction",
+  "author": "almond-bongbong",
+  "license": "MIT",
+  "files": [
+    "/lib"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c",
     "start": "rollup -c -w"
   },
-  "author": "almond-bongbong",
-  "license": "MIT",
   "dependencies": {
     "react-transition-group": "^4.4.2"
   },
@@ -34,5 +38,14 @@
   "peerDependencies": {
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
-  }
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "react-component",
+    "tooltip",
+    "auto",
+    "tooltip",
+    "auto tooltip"
+  ]
 }
