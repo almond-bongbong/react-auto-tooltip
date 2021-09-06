@@ -27,7 +27,7 @@ interface TooltipMessageProps {
 }
 
 const containerId = 'tooltip-auto-container';
-const ADJUSTMENT = 15;
+const ADJUSTMENT = 10;
 const getArrowBottomStyleWithColor = (
   arrowColor: string = 'rgba(0, 0, 0, 0.8)'
 ): CSSProperties => ({
