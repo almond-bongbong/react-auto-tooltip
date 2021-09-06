@@ -5,10 +5,10 @@
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
-  "homepage": "https://almond-bongbong.github.io/react-auto-tootip/",
+  "homepage": "https://almond-bongbong.github.io/react-auto-tooltip/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/almond-bongbong/react-auto-tootip.git"
+    "url": "https://github.com/almond-bongbong/react-auto-tooltip.git"
   },
   "author": "almond-bongbong",
   "license": "MIT",
