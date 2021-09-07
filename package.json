@@ -1,7 +1,7 @@
 {
   "name": "react-auto-tooltip",
-  "version": "1.0.5",
-  "description": "Modal component for react",
+  "version": "1.0.51",
+  "description": "Tooltip component for react",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
