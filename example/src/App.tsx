@@ -12,7 +12,12 @@ function App(): ReactElement {
         <h3>Basic usage</h3>
         <div className="example-area">
           <div className="playground">
-            <Tooltip message="text message">hover me</Tooltip>
+            <Tooltip
+              message="text message"
+              onVisible={(visible) => console.log(visible)}
+            >
+              hover me
+            </Tooltip>
           </div>
           <CommonHighlighter>
             {`<Tooltip message="text message">hover me</Tooltip>`}

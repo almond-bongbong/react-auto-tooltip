@@ -8,6 +8,7 @@ import React, {
 import useLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import TooltipMessage from '../TooltipMessage';
 import styles from './Tooltip.style.css';
+import useUpdateEffect from '../../hooks/useUpdateEffect';
 
 interface TooltipProps {
   children: ReactNode;
@@ -18,6 +19,7 @@ interface TooltipProps {
   backgroundColor?: string;
   style?: CSSProperties;
   className?: string;
+  onVisible?: (visible: boolean) => void;
 }
 
 function Tooltip({
@@ -29,10 +31,15 @@ function Tooltip({
   backgroundColor,
   style,
   className,
+  onVisible,
 }: TooltipProps): ReactElement {
   const [triggerOn, setTriggerOn] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
   const triggerElementRef = useRef<HTMLSpanElement>(null);
+
+  useUpdateEffect(() => {
+    onVisible?.(show);
+  }, [show]);
 
   const handleOver = () => {
     setShow(true);
