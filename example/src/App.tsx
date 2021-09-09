@@ -51,7 +51,7 @@ function App(): ReactElement {
             </Tooltip>
           </div>
           <CommonHighlighter>
-            {`<Tooltip message="My custom tooltip" backgroundColor="skyblue">
+            {`<Tooltip message="My custom tooltip" backgroundColor="blue">
   <button type="button" className="example-button">
     text message
   </button>
