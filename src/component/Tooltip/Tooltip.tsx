@@ -2,6 +2,7 @@ import React, {
   CSSProperties,
   ReactElement,
   ReactNode,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -12,8 +13,9 @@ import useUpdateEffect from '../../hooks/useUpdateEffect';
 
 interface TooltipProps {
   children: ReactNode;
+  visible?: boolean;
   message: ReactNode;
-  toggleMode?: boolean;
+  clickMode?: boolean;
   defaultVisible?: boolean;
   zIndex?: number;
   backgroundColor?: string;
@@ -24,8 +26,9 @@ interface TooltipProps {
 
 function Tooltip({
   children,
+  visible,
   message,
-  toggleMode = false,
+  clickMode = false,
   defaultVisible = false,
   zIndex,
   backgroundColor,
@@ -34,23 +37,34 @@ function Tooltip({
   onVisible,
 }: TooltipProps): ReactElement {
   const [triggerOn, setTriggerOn] = useState<boolean>(false);
-  const [show, setShow] = useState<boolean>(false);
+  const [show, setShow] = useState<boolean>(visible || false);
   const triggerElementRef = useRef<HTMLSpanElement>(null);
+  const triggerElement =
+    triggerElementRef.current?.children[0] || triggerElementRef.current;
 
   useUpdateEffect(() => {
     onVisible?.(show);
   }, [show]);
 
+  useEffect(() => {
+    if (visible != null) {
+      setShow(visible);
+    }
+  }, [visible]);
+
   const handleOver = () => {
+    if (visible != null) return;
     setShow(true);
     setTriggerOn(true);
   };
 
   const handleOut = () => {
+    if (visible != null) return;
     setTriggerOn(false);
   };
 
   const handleToggle = () => {
+    if (visible != null) return;
     if (!triggerOn) {
       setShow(true);
     }
@@ -58,6 +72,7 @@ function Tooltip({
   };
 
   const handleBlur = () => {
+    if (visible != null) return;
     setTriggerOn(false);
   };
 
@@ -74,7 +89,7 @@ function Tooltip({
       <span
         ref={triggerElementRef}
         className={styles['tooltip-trigger']}
-        {...(toggleMode
+        {...(clickMode
           ? { onClick: handleToggle, onBlur: handleBlur }
           : { onMouseOver: handleOver, onMouseOut: handleOut })}
       >
@@ -88,9 +103,7 @@ function Tooltip({
           backgroundColor={backgroundColor}
           style={style}
           className={className}
-          triggerElement={
-            triggerElementRef.current?.children[0] || triggerElementRef.current
-          }
+          triggerElement={triggerElement}
           onExited={handleHide}
         />
       )}

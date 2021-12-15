@@ -12,6 +12,9 @@
   word-break: break-all;
   transition: visibility 0.3s, opacity 0.3s;
 }
+.tooltip.fixed {
+  position: fixed;
+}
 
 .tooltip:global(.appear-active),
 .tooltip:global(.appear-done),

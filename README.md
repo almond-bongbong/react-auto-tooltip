@@ -31,7 +31,7 @@ import { Tooltip } from 'react-auto-tooltip';
 | Name            | Type                       | Default              | Description                                                      |
 | --------------- | -------------------------- | -------------------- | ---------------------------------------------------------------- |
 | message         | ReactNode                  |                      | The text shown in the tooltip                                    |
-| toggleMode      | boolean                    | `false`              | Tooltip trigger click mode                                       |
+| clickMode      | boolean                    | `false`              | Tooltip trigger click mode                                       |
 | defaultVisible  | boolean                    | `false`              | Whether the floating tooltip is visible by default               |
 | zIndex          | number                     | `1000`               | Config `z-index` of Tooltip                                      |
 | backgroundColor | string                     | `rgba(0, 0, 0, 0.9)` | The background color                                             |

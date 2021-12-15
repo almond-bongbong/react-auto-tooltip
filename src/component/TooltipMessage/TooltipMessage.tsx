@@ -67,6 +67,10 @@ function TooltipMessage({
   const forceUpdate = useForceUpdate();
   const [tooltipStyle, setTooltipStyle] = useState<CSSProperties | null>(null);
   const [tooltipArrowStyle, setTooltipArrowStyle] = useState<CSSProperties>({});
+  const isFixed =
+    hasWindow() &&
+    triggerElement &&
+    window.getComputedStyle(triggerElement).position === 'fixed';
 
   if (hasWindow() && !document.getElementById(containerId)) {
     addRootElement(containerId);
@@ -99,7 +103,7 @@ function TooltipMessage({
       const messageHeight = messageElement.offsetHeight;
       const triggerElementRect = triggerElement.getBoundingClientRect();
       const triggerOffset = triggerElementRect && {
-        top: triggerElementRect.top + window.scrollY,
+        top: triggerElementRect.top + (isFixed ? 0 : window.scrollY),
         left: triggerElementRect.left + window.scrollX,
         width: triggerElementRect.width,
         height: triggerElementRect.height,
@@ -135,13 +139,17 @@ function TooltipMessage({
 
       if (isOverRight) {
         tooltipCalculatedStyle.right = ADJUSTMENT;
-        tooltipArrowCalculatedStyle.right =
-          triggerOffset.width / 2 + (messageRight - triggerRight);
+        tooltipArrowCalculatedStyle.right = Math.max(
+          triggerOffset.width / 2 + (messageRight - triggerRight),
+          10
+        );
         tooltipArrowCalculatedStyle.transform = 'translateX(50%)';
       } else {
         tooltipCalculatedStyle.left = tooltipLeft;
-        tooltipArrowCalculatedStyle.left =
-          triggerOffset.width / 2 + triggerOffset.left - tooltipLeft;
+        tooltipArrowCalculatedStyle.left = Math.max(
+          triggerOffset.width / 2 + triggerOffset.left - tooltipLeft,
+          10
+        );
         tooltipArrowCalculatedStyle.transform = 'translateX(-50%)';
       }
 
@@ -164,7 +172,9 @@ function TooltipMessage({
       >
         <div
           ref={messageElementRef}
-          className={`${styles['tooltip']} ${className || ''}`}
+          className={`${styles['tooltip']} ${className || ''} ${
+            isFixed ? styles['fixed'] : ''
+          }`}
           style={{
             ...tooltipStyle,
             ...style,
