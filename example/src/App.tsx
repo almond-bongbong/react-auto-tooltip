@@ -1,8 +1,11 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Tooltip } from 'react-auto-tooltip';
+import Draggable from 'react-draggable';
 import CommonHighlighter from './component/CommonHighlighter';
 
 function App(): ReactElement {
+  const [visible, setVisible] = useState<boolean>();
+
   return (
     <>
       <div className="container">
@@ -60,16 +63,16 @@ function App(): ReactElement {
         </div>
 
         <div className="example-area">
-          <h3>Toggle mode</h3>
+          <h3>Click mode</h3>
           <div className="playground">
-            <Tooltip message="text message" toggleMode>
+            <Tooltip message="text message" clickMode>
               <button type="button" className="example-button">
                 click me
               </button>
             </Tooltip>
           </div>
           <CommonHighlighter>
-            {`<Tooltip message="text message" toggleMode>
+            {`<Tooltip message="text message" clickMode>
   <button type="button">
     click me
   </button>
@@ -80,14 +83,14 @@ function App(): ReactElement {
         <div className="example-area">
           <h3>Default visible</h3>
           <div className="playground">
-            <Tooltip message="text message" defaultVisible>
+            <Tooltip message="text message" defaultVisible clickMode>
               <button type="button" className="example-button">
                 hover me
               </button>
             </Tooltip>
           </div>
           <CommonHighlighter>
-            {`<Tooltip message="text message" defaultVisible>
+            {`<Tooltip message="text message" defaultVisible clickMode>
   <button type="button">
     hover me
   </button>
@@ -96,26 +99,17 @@ function App(): ReactElement {
         </div>
       </div>
 
-      <div className="trigger-list">
-        <Tooltip message="text message">
-          <span className="side-trigger top left">hover me</span>
-        </Tooltip>
-        <Tooltip message="text message">
-          <span className="side-trigger top center">hover me</span>
-        </Tooltip>
-        <Tooltip message="text message">
-          <span className="side-trigger top right">hover me</span>
-        </Tooltip>
-        <Tooltip message="text message">
-          <span className="side-trigger bottom left">hover me</span>
-        </Tooltip>
-        <Tooltip message="text message">
-          <span className="side-trigger bottom center">hover me</span>
-        </Tooltip>
-        <Tooltip message="text message">
-          <span className="side-trigger bottom right">hover me</span>
-        </Tooltip>
-      </div>
+      <Tooltip
+        visible={visible}
+        message="My position is calculated automatically."
+      >
+        <Draggable
+          onStart={() => setVisible(false)}
+          onStop={() => setVisible(undefined)}
+        >
+          <span className="side-trigger top left">Drag Me</span>
+        </Draggable>
+      </Tooltip>
 
       <footer>
         <div className="footer-content">
