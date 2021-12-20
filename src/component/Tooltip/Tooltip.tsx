@@ -94,14 +94,12 @@ function Tooltip({
   const handleScroll = useCallback(() => {
     if (triggerElement) {
       const triggerTop = triggerElement.getBoundingClientRect().top;
-      console.log(triggerTop);
 
       if (
         prevTooltipMessageTopRef.current &&
         prevTooltipMessageTopRef.current != triggerTop &&
         tooltipMessageRef.current
       ) {
-        console.log('update position');
         tooltipMessageRef.current.update();
       }
 
