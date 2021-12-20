@@ -5,6 +5,23 @@ import CommonHighlighter from './component/CommonHighlighter';
 
 function App(): ReactElement {
   const [visible, setVisible] = useState<boolean>();
+  // const [bottomPosition, setBottomPosition] = useState(0);
+
+  // const handleScroll = useCallback(() => {
+  //   const offsetBottom = Math.max(
+  //     0,
+  //     window.scrollY - (document.body.scrollHeight - window.innerHeight - 114)
+  //   );
+  //   setBottomPosition(offsetBottom);
+  // }, []);
+
+  // useEffect(() => {
+  //   window.addEventListener('scroll', handleScroll);
+  //
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, [handleScroll]);
 
   return (
     <>
@@ -110,6 +127,15 @@ function App(): ReactElement {
           <span className="side-trigger top left">Drag Me</span>
         </Draggable>
       </Tooltip>
+
+      {/*<Tooltip message="Hi!" visible>
+        <span
+          className="side-trigger test"
+          style={{ transform: `translateY(-${bottomPosition}px)` }}
+        >
+          I'm Dog
+        </span>
+      </Tooltip>*/}
 
       <footer>
         <div className="footer-content">

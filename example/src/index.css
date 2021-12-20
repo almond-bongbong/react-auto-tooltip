@@ -164,6 +164,11 @@ hr {
   cursor: pointer;
 }
 
+.side-trigger.test {
+  right: 50px;
+  bottom: 50px;
+}
+
 .side-trigger.top {
   top: 10px;
 }

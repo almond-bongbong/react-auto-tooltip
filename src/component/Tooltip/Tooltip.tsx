@@ -2,6 +2,7 @@ import React, {
   CSSProperties,
   ReactElement,
   ReactNode,
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -10,6 +11,7 @@ import useLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import TooltipMessage from '../TooltipMessage';
 import styles from './Tooltip.style.css';
 import useUpdateEffect from '../../hooks/useUpdateEffect';
+import { TooltipMessageRef } from '../TooltipMessage/TooltipMessage';
 
 interface TooltipProps {
   children: ReactNode;
@@ -37,10 +39,12 @@ function Tooltip({
   onVisible,
 }: TooltipProps): ReactElement {
   const [triggerOn, setTriggerOn] = useState<boolean>(false);
-  const [show, setShow] = useState<boolean>(visible || false);
+  const [show, setShow] = useState<boolean>(false);
   const triggerElementRef = useRef<HTMLSpanElement>(null);
   const triggerElement =
     triggerElementRef.current?.children[0] || triggerElementRef.current;
+  const tooltipMessageRef = useRef<TooltipMessageRef>(null);
+  const prevTooltipMessageTopRef = useRef<number | null>(null);
 
   useUpdateEffect(() => {
     onVisible?.(show);
@@ -53,7 +57,6 @@ function Tooltip({
   }, [visible]);
 
   const handleOver = () => {
-    if (visible != null) return;
     setShow(true);
     setTriggerOn(true);
   };
@@ -84,6 +87,36 @@ function Tooltip({
     if (defaultVisible) handleOver();
   }, []);
 
+  useLayoutEffect(() => {
+    if (visible) handleOver();
+  }, []);
+
+  const handleScroll = useCallback(() => {
+    if (triggerElement) {
+      const triggerTop = triggerElement.getBoundingClientRect().top;
+      console.log(triggerTop);
+
+      if (
+        prevTooltipMessageTopRef.current &&
+        prevTooltipMessageTopRef.current != triggerTop &&
+        tooltipMessageRef.current
+      ) {
+        console.log('update position');
+        tooltipMessageRef.current.update();
+      }
+
+      prevTooltipMessageTopRef.current = triggerTop;
+    }
+  }, [triggerElement]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [handleScroll]);
+
   return (
     <>
       <span
@@ -105,6 +138,7 @@ function Tooltip({
           className={className}
           triggerElement={triggerElement}
           onExited={handleHide}
+          ref={tooltipMessageRef}
         />
       )}
     </>

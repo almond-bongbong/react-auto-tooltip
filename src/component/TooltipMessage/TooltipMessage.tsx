@@ -1,8 +1,12 @@
 import React, {
   CSSProperties,
+  forwardRef,
   ReactElement,
   ReactNode,
+  RefObject,
+  useCallback,
   useEffect,
+  useImperativeHandle,
   useRef,
   useState,
 } from 'react';
@@ -24,6 +28,10 @@ interface TooltipMessageProps {
   className?: string;
   triggerElement: Element | null;
   onExited: () => void;
+}
+
+export interface TooltipMessageRef {
+  update: () => void;
 }
 
 const containerId = 'tooltip-auto-container';
@@ -53,16 +61,19 @@ const calcLeft = (
   messageWidth: number
 ) => Math.max(triggerLeft - (messageWidth - triggerWidth) / 2, ADJUSTMENT);
 
-function TooltipMessage({
-  triggerOn,
-  message,
-  zIndex = 1000,
-  backgroundColor,
-  style,
-  className = '',
-  triggerElement,
-  onExited,
-}: TooltipMessageProps): ReactElement {
+function TooltipMessage(
+  {
+    triggerOn,
+    message,
+    zIndex = 1000,
+    backgroundColor,
+    style,
+    className = '',
+    triggerElement,
+    onExited,
+  }: TooltipMessageProps,
+  ref: RefObject<TooltipMessageRef>
+): ReactElement {
   const messageElementRef = useRef<HTMLDivElement>(null);
   const forceUpdate = useForceUpdate();
   const [tooltipStyle, setTooltipStyle] = useState<CSSProperties | null>(null);
@@ -87,7 +98,7 @@ function TooltipMessage({
     };
   }, []);
 
-  useLayoutEffect(() => {
+  const calculatePosition = useCallback(() => {
     const messageElement = messageElementRef.current;
 
     if (
@@ -161,6 +172,14 @@ function TooltipMessage({
     }
   }, [messageElementRef.current, triggerElement, triggerOn]);
 
+  useLayoutEffect(() => {
+    calculatePosition();
+  }, [calculatePosition]);
+
+  useImperativeHandle(ref, () => ({
+    update: calculatePosition,
+  }));
+
   return (
     <Portal selector={`#${containerId}`}>
       <CSSTransition
@@ -190,4 +209,4 @@ function TooltipMessage({
   );
 }
 
-export default TooltipMessage;
+export default forwardRef(TooltipMessage);
