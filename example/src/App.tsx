@@ -102,7 +102,7 @@ function App(): ReactElement {
           <div className="playground">
             <Tooltip message="text message" defaultVisible clickMode>
               <button type="button" className="example-button">
-                hover me
+                click me
               </button>
             </Tooltip>
           </div>
