@@ -57,19 +57,17 @@ function Tooltip({
   }, [visible]);
 
   const handleOver = () => {
-    setShow(true);
-    setTriggerOn(true);
+    setShow(visible ?? true);
+    setTriggerOn(visible ?? true);
   };
 
   const handleOut = () => {
-    if (visible != null) return;
-    setTriggerOn(false);
+    setTriggerOn(visible ?? false);
   };
 
   const handleToggle = () => {
-    if (visible != null) return;
     if (!triggerOn) {
-      setShow(true);
+      setShow(visible ?? true);
     }
     setTriggerOn((prev) => !prev);
   };
