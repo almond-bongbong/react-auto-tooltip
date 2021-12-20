@@ -4,10 +4,10 @@ import React, {
   ReactNode,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
-import useLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import TooltipMessage from '../TooltipMessage';
 import styles from './Tooltip.style.css';
 import useUpdateEffect from '../../hooks/useUpdateEffect';
@@ -50,16 +50,10 @@ function Tooltip({
     onVisible?.(show);
   }, [show]);
 
-  useEffect(() => {
-    if (visible != null) {
-      setShow(visible);
-    }
-  }, [visible]);
-
-  const handleOver = () => {
+  const handleOver = useCallback(() => {
     setShow(visible ?? true);
     setTriggerOn(visible ?? true);
-  };
+  }, [visible]);
 
   const handleOut = () => {
     setTriggerOn(visible ?? false);
@@ -83,11 +77,11 @@ function Tooltip({
 
   useLayoutEffect(() => {
     if (defaultVisible) handleOver();
-  }, []);
+  }, [defaultVisible, handleOver]);
 
   useLayoutEffect(() => {
-    if (visible) handleOver();
-  }, []);
+    if (visible && (!show || !triggerOn)) handleOver();
+  }, [visible, handleOver]);
 
   const handleScroll = useCallback(() => {
     if (triggerElement) {
@@ -124,7 +118,7 @@ function Tooltip({
       >
         {children}
       </span>
-      {show && (
+      {show && (visible == null || visible) && (
         <TooltipMessage
           triggerOn={triggerOn}
           message={message}

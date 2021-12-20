@@ -6,7 +6,7 @@ import CommonHighlighter from './component/CommonHighlighter';
 function App(): ReactElement {
   const [visible, setVisible] = useState<boolean>();
   // const [bottomPosition, setBottomPosition] = useState(0);
-
+  //
   // const handleScroll = useCallback(() => {
   //   const offsetBottom = Math.max(
   //     0,
@@ -14,7 +14,7 @@ function App(): ReactElement {
   //   );
   //   setBottomPosition(offsetBottom);
   // }, []);
-
+  //
   // useEffect(() => {
   //   window.addEventListener('scroll', handleScroll);
   //
@@ -128,10 +128,12 @@ function App(): ReactElement {
         </Draggable>
       </Tooltip>
 
-      {/*<Tooltip message="Hi!" visible>
+      {/*<Tooltip message="Hi!" visible={bottomPosition === 0}>
         <span
           className="side-trigger test"
-          style={{ transform: `translateY(-${bottomPosition}px)` }}
+          style={{
+            transform: `translateY(-${bottomPosition}px)`,
+          }}
         >
           I'm Dog
         </span>
