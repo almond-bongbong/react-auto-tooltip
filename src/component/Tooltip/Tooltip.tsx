@@ -4,7 +4,6 @@ import React, {
   ReactNode,
   useCallback,
   useEffect,
-  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
@@ -12,6 +11,7 @@ import TooltipMessage from '../TooltipMessage';
 import styles from './Tooltip.style.css';
 import useUpdateEffect from '../../hooks/useUpdateEffect';
 import { TooltipMessageRef } from '../TooltipMessage/TooltipMessage';
+import useLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 
 interface TooltipProps {
   children: ReactNode;
