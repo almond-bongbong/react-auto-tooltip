@@ -13,7 +13,7 @@ import React, {
 import { CSSTransition } from 'react-transition-group';
 import { addRootElement } from '../../util/element';
 import useForceUpdate from '../../hooks/useForceUpdate';
-import useLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
+import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import { newLineToBreakTag } from '../../util/string';
 import { hasWindow } from '../../util/browser';
 import Portal from '../Portal';
@@ -172,7 +172,7 @@ function TooltipMessage(
     }
   }, [messageElementRef.current, triggerElement, triggerOn]);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     calculatePosition();
   }, [calculatePosition]);
 

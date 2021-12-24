@@ -11,7 +11,7 @@ import TooltipMessage from '../TooltipMessage';
 import styles from './Tooltip.style.css';
 import useUpdateEffect from '../../hooks/useUpdateEffect';
 import { TooltipMessageRef } from '../TooltipMessage/TooltipMessage';
-import useLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
+import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 
 interface TooltipProps {
   children: ReactNode;
@@ -75,11 +75,11 @@ function Tooltip({
     setShow(false);
   };
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (defaultVisible) handleOver();
   }, [defaultVisible, handleOver]);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (visible && (!show || !triggerOn)) handleOver();
   }, [visible, handleOver]);
 
