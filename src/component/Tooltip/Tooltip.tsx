@@ -45,6 +45,8 @@ function Tooltip({
     triggerElementRef.current?.children[0] || triggerElementRef.current;
   const tooltipMessageRef = useRef<TooltipMessageRef>(null);
   const prevTooltipMessageTopRef = useRef<number | null>(null);
+  const detectAnimationFrameRef = useRef<number | null>(null);
+  const renderTooltip = show && (visible == null || visible);
 
   useUpdateEffect(() => {
     onVisible?.(show);
@@ -107,6 +109,23 @@ function Tooltip({
     };
   }, [handleScroll]);
 
+  const detectTrigger = useCallback(() => {
+    tooltipMessageRef.current?.update();
+    detectAnimationFrameRef.current = requestAnimationFrame(detectTrigger);
+  }, []);
+
+  useEffect(() => {
+    if (renderTooltip) {
+      detectAnimationFrameRef.current = requestAnimationFrame(detectTrigger);
+    }
+
+    return () => {
+      if (detectAnimationFrameRef.current) {
+        cancelAnimationFrame(detectAnimationFrameRef.current);
+      }
+    };
+  }, [detectTrigger, renderTooltip]);
+
   return (
     <>
       <span
@@ -118,7 +137,7 @@ function Tooltip({
       >
         {children}
       </span>
-      {show && (visible == null || visible) && (
+      {renderTooltip && (
         <TooltipMessage
           triggerOn={triggerOn}
           message={message}

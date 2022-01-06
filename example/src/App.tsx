@@ -128,16 +128,9 @@ function App(): ReactElement {
         </Draggable>
       </Tooltip>
 
-      {/*<Tooltip message="Hi!" visible={bottomPosition === 0}>
-        <span
-          className="side-trigger test"
-          style={{
-            transform: `translateY(-${bottomPosition}px)`,
-          }}
-        >
-          I'm Dog
-        </span>
-      </Tooltip>*/}
+      <Tooltip message="Move! Move! Move! Move! Move! Move!" defaultVisible>
+        <span className="side-trigger moving-trigger">I'm Dog</span>
+      </Tooltip>
 
       <footer>
         <div className="footer-content">

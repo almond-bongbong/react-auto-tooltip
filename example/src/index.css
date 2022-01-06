@@ -189,3 +189,19 @@ hr {
 .side-trigger.right {
   right: 10px;
 }
+
+.moving-trigger {
+  position: fixed;
+  bottom: 10px;
+  left: 30px;
+  animation: infinite move 8s alternate linear;
+}
+
+@keyframes move {
+  0% {
+    left: 30px;
+  }
+  100% {
+    left: calc(100% - 100px);
+  }
+}
