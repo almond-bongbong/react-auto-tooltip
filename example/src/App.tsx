@@ -128,9 +128,9 @@ function App(): ReactElement {
         </Draggable>
       </Tooltip>
 
-      <Tooltip message="Move! Move! Move! Move! Move! Move!" defaultVisible>
+      {/*<Tooltip message="Move! Move! Move! Move! Move! Move!" defaultVisible>
         <span className="side-trigger moving-trigger">I'm Dog</span>
-      </Tooltip>
+      </Tooltip>*/}
 
       <footer>
         <div className="footer-content">

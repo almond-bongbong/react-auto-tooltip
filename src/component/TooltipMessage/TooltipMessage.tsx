@@ -126,9 +126,12 @@ function TooltipMessage(
       const rightEnd =
         Math.round(triggerLeft - messageWidth / 2 + triggerWidth / 2) +
         messageWidth;
-      const isOverRight = rightEnd + ADJUSTMENT > window.innerWidth;
+      const scrollWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+      const viewportWidth = window.innerWidth - scrollWidth;
+      const isOverRight = rightEnd + ADJUSTMENT > viewportWidth;
       const isOverTop = triggerElementRect.top - messageHeight - ADJUSTMENT < 0;
-      const messageRight = window.innerWidth - ADJUSTMENT;
+      const messageRight = viewportWidth - ADJUSTMENT;
       const triggerRight = triggerLeft + triggerWidth;
       const tooltipLeft = calcLeft(triggerLeft, triggerWidth, messageWidth);
       let tooltipCalculatedStyle: CSSProperties = {};
