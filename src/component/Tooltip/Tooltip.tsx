@@ -7,10 +7,10 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import TooltipMessage from '../TooltipMessage';
-import styles from './Tooltip.style.css';
 import useUpdateEffect from '../../hooks/useUpdateEffect';
-import { TooltipMessageRef } from '../TooltipMessage/TooltipMessage';
+import TooltipMessage, {
+  TooltipMessageRef,
+} from '../TooltipMessage/TooltipMessage';
 import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 
 interface TooltipProps {
@@ -126,17 +126,20 @@ function Tooltip({
     };
   }, [detectTrigger, renderTooltip]);
 
+  const triggerProps = {
+    ref: triggerElementRef,
+    ...(clickMode
+      ? { onClick: handleToggle, onBlur: handleBlur }
+      : { onMouseOver: handleOver, onMouseOut: handleOut }),
+  };
+
+  if (renderTooltip) {
+    console.log(children, React.isValidElement(children));
+  }
+
   return (
     <>
-      <span
-        ref={triggerElementRef}
-        className={styles['tooltip-trigger']}
-        {...(clickMode
-          ? { onClick: handleToggle, onBlur: handleBlur }
-          : { onMouseOver: handleOver, onMouseOut: handleOut })}
-      >
-        {children}
-      </span>
+      <span {...triggerProps}>{children}</span>
       {renderTooltip && (
         <TooltipMessage
           triggerOn={triggerOn}
