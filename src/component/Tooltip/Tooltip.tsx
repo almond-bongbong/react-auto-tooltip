@@ -133,10 +133,6 @@ function Tooltip({
       : { onMouseOver: handleOver, onMouseOut: handleOut }),
   };
 
-  if (renderTooltip) {
-    console.log(children, React.isValidElement(children));
-  }
-
   return (
     <>
       <span {...triggerProps}>{children}</span>
