@@ -39,6 +39,7 @@ import { Tooltip } from 'react-auto-tooltip';
 | style           | CSSProperties              |                      |                                                                  |
 | className       | string                     |                      |                                                                  |
 | onVisible       | (visible: boolean) => void |                      | Callback executed when visibility of the tooltip card is changed |
+| onClickMessage  | () => void                 |                      | Set the handler to handle click tooltip message                  |
 
 ## License
 

@@ -24,6 +24,7 @@ interface TooltipProps {
   style?: CSSProperties;
   className?: string;
   onVisible?: (visible: boolean) => void;
+  onClickMessage?: () => void;
 }
 
 function Tooltip({
@@ -37,6 +38,7 @@ function Tooltip({
   style,
   className,
   onVisible,
+  onClickMessage,
 }: TooltipProps): ReactElement {
   const [triggerOn, setTriggerOn] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
@@ -138,6 +140,7 @@ function Tooltip({
       <span {...triggerProps}>{children}</span>
       {renderTooltip && (
         <TooltipMessage
+          ref={tooltipMessageRef}
           triggerOn={triggerOn}
           message={message}
           zIndex={zIndex}
@@ -146,7 +149,7 @@ function Tooltip({
           className={className}
           triggerElement={triggerElement}
           onExited={handleHide}
-          ref={tooltipMessageRef}
+          onClick={onClickMessage}
         />
       )}
     </>

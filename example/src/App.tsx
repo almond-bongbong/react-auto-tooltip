@@ -100,7 +100,12 @@ function App(): ReactElement {
         <div className="example-area">
           <h3>Default visible</h3>
           <div className="playground">
-            <Tooltip message="text message" defaultVisible clickMode>
+            <Tooltip
+              message="text message"
+              defaultVisible
+              clickMode
+              onClickMessage={() => console.log('click tooltip')}
+            >
               <button type="button" className="example-button">
                 click me
               </button>

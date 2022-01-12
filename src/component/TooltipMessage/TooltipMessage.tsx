@@ -28,6 +28,7 @@ interface TooltipMessageProps {
   className?: string;
   triggerElement: Element | null;
   onExited: () => void;
+  onClick?: () => void;
 }
 
 export interface TooltipMessageRef {
@@ -71,6 +72,7 @@ function TooltipMessage(
     className = '',
     triggerElement,
     onExited,
+    onClick,
   }: TooltipMessageProps,
   ref: RefObject<TooltipMessageRef>
 ): ReactElement {
@@ -194,9 +196,17 @@ function TooltipMessage(
       >
         <div
           ref={messageElementRef}
-          className={`${styles['tooltip']} ${className || ''} ${
-            isFixed ? styles['fixed'] : ''
-          }`}
+          {...(onClick && {
+            onClick,
+            tabIndex: 0,
+          })}
+          onClick={onClick}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') onClick?.();
+          }}
+          className={`${styles.tooltip} ${className || ''} ${
+            isFixed ? styles.fixed : ''
+          } ${onClick ? styles.clickable : ''}`}
           style={{
             ...tooltipStyle,
             ...style,
